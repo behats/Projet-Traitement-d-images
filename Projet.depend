@@ -1,12 +1,11 @@
 # depslib dependency file v1.0
-1521468609 source:/users/info/etu-s4/behats/Projet images/Projet/MyImage.cpp
+1521468609 source:/users/info/etu-s4/jayetlan/Documents/M4105C/Projet/MyImage.cpp
 	"MyImage.hpp"
 	<vector>
 
-1521468614 /users/info/etu-s4/behats/Projet images/Projet/MyImage.hpp
+1521474792 /users/info/etu-s4/jayetlan/Documents/M4105C/Projet/MyImage.hpp
 	<wx/wxprec.h>
 	<wx/wx.h>
-	<wx/filedlg.h>
 
 1491890964 /usr/include/wx-3.0/wx/wxprec.h
 	"wx/defs.h"
@@ -1645,71 +1644,50 @@
 1491890964 /usr/include/wx-3.0/wx/gtk/mdi.h
 	"wx/frame.h"
 
-1520406816 source:/users/info/etu-s4/behats/Projet images/Projet/MyRotateDialog.cpp
+1520406816 source:/users/info/etu-s4/jayetlan/Documents/M4105C/Projet/MyRotateDialog.cpp
 	"MyRotateDialog.hpp"
 	<wx/intl.h>
 	<wx/string.h>
 
-1521098872 /users/info/etu-s4/behats/Projet images/Projet/MyRotateDialog.hpp
+1521098872 /users/info/etu-s4/jayetlan/Documents/M4105C/Projet/MyRotateDialog.hpp
 	<wx/radiobox.h>
 	<wx/button.h>
 	<wx/dialog.h>
 
-1520406115 source:/users/info/etu-s4/behats/Projet images/Projet/MyThresholdDialog.cpp
+1521791905 source:/users/info/etu-s4/jayetlan/Documents/M4105C/Projet/MyThresholdDialog.cpp
 	"MyThresholdDialog.hpp"
 
-1520406045 /users/info/etu-s4/behats/Projet images/Projet/MyThresholdDialog.hpp
+1521790397 /users/info/etu-s4/jayetlan/Documents/M4105C/Projet/MyThresholdDialog.hpp
 	<wx/wxprec.h>
 	<wx/wx.h>
 	<wx/filedlg.h>
 
-1521471227 source:/users/info/etu-s4/behats/Projet images/Projet/projet.cpp
+1521791855 source:/users/info/etu-s4/jayetlan/Documents/M4105C/Projet/MyFrame.cpp
+	"MyFrame.hpp"
+
+1521791018 /users/info/etu-s4/jayetlan/Documents/M4105C/Projet/MyFrame.hpp
+	<wx/wxprec.h>
+	<wx/wx.h>
+	<wx/filedlg.h>
+	"MyPanel.hpp"
+
+1521790983 /users/info/etu-s4/jayetlan/Documents/M4105C/Projet/MyPanel.hpp
 	<wx/wxprec.h>
 	<wx/wx.h>
 	<wx/filedlg.h>
 	"MyImage.hpp"
+
+1521473647 source:/users/info/etu-s4/jayetlan/Documents/M4105C/Projet/projet.cpp
+	<wx/wxprec.h>
+	<wx/wx.h>
+	<wx/filedlg.h>
+	"MyFrame.hpp"
 	"MyThresholdDialog.hpp"
 	"MyRotateDialog.hpp"
-	<wx/cmdproc.h>
 
-1491890964 /usr/include/wx-3.0/wx/cmdproc.h
-	"wx/defs.h"
-	"wx/object.h"
-	"wx/list.h"
-
-1521468609 source:/users/info/etu-s4/behats/git/Projet-Traitement-d-images/MyImage.cpp
+1521791882 source:/users/info/etu-s4/jayetlan/Documents/M4105C/Projet/MyPanel.cpp
 	"MyImage.hpp"
-	<vector>
-
-1521468614 /users/info/etu-s4/behats/git/Projet-Traitement-d-images/MyImage.hpp
-	<wx/wxprec.h>
-	<wx/wx.h>
-	<wx/filedlg.h>
-
-1520406816 source:/users/info/etu-s4/behats/git/Projet-Traitement-d-images/MyRotateDialog.cpp
+	"MyPanel.hpp"
 	"MyRotateDialog.hpp"
-	<wx/intl.h>
-	<wx/string.h>
-
-1521098872 /users/info/etu-s4/behats/git/Projet-Traitement-d-images/MyRotateDialog.hpp
-	<wx/radiobox.h>
-	<wx/button.h>
-	<wx/dialog.h>
-
-1520406115 source:/users/info/etu-s4/behats/git/Projet-Traitement-d-images/MyThresholdDialog.cpp
 	"MyThresholdDialog.hpp"
-
-1520406045 /users/info/etu-s4/behats/git/Projet-Traitement-d-images/MyThresholdDialog.hpp
-	<wx/wxprec.h>
-	<wx/wx.h>
-	<wx/filedlg.h>
-
-1521789211 source:/users/info/etu-s4/behats/git/Projet-Traitement-d-images/projet.cpp
-	<wx/wxprec.h>
-	<wx/wx.h>
-	<wx/filedlg.h>
-	"MyImage.hpp"
-	"MyThresholdDialog.hpp"
-	"MyRotateDialog.hpp"
-	<wx/cmdproc.h>
 

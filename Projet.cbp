@@ -37,8 +37,12 @@
 		<Linker>
 			<Add option="`wx-config --libs`" />
 		</Linker>
+		<Unit filename="MyFrame.cpp" />
+		<Unit filename="MyFrame.hpp" />
 		<Unit filename="MyImage.cpp" />
 		<Unit filename="MyImage.hpp" />
+		<Unit filename="MyPanel.cpp" />
+		<Unit filename="MyPanel.hpp" />
 		<Unit filename="MyRotateDialog.cpp" />
 		<Unit filename="MyRotateDialog.hpp" />
 		<Unit filename="MyThresholdDialog.cpp" />

@@ -3,8 +3,9 @@
 #include <wx/wxprec.h>
 #ifndef WX_PRECOMP
 #include <wx/wx.h>
-#include <wx/filedlg.h>
 #endif
+
+
 
 class MyImage : public wxImage{
 
