@@ -1677,3 +1677,39 @@
 	"wx/object.h"
 	"wx/list.h"
 
+1521468609 source:/users/info/etu-s4/behats/git/Projet-Traitement-d-images/MyImage.cpp
+	"MyImage.hpp"
+	<vector>
+
+1521468614 /users/info/etu-s4/behats/git/Projet-Traitement-d-images/MyImage.hpp
+	<wx/wxprec.h>
+	<wx/wx.h>
+	<wx/filedlg.h>
+
+1520406816 source:/users/info/etu-s4/behats/git/Projet-Traitement-d-images/MyRotateDialog.cpp
+	"MyRotateDialog.hpp"
+	<wx/intl.h>
+	<wx/string.h>
+
+1521098872 /users/info/etu-s4/behats/git/Projet-Traitement-d-images/MyRotateDialog.hpp
+	<wx/radiobox.h>
+	<wx/button.h>
+	<wx/dialog.h>
+
+1520406115 source:/users/info/etu-s4/behats/git/Projet-Traitement-d-images/MyThresholdDialog.cpp
+	"MyThresholdDialog.hpp"
+
+1520406045 /users/info/etu-s4/behats/git/Projet-Traitement-d-images/MyThresholdDialog.hpp
+	<wx/wxprec.h>
+	<wx/wx.h>
+	<wx/filedlg.h>
+
+1521789211 source:/users/info/etu-s4/behats/git/Projet-Traitement-d-images/projet.cpp
+	<wx/wxprec.h>
+	<wx/wx.h>
+	<wx/filedlg.h>
+	"MyImage.hpp"
+	"MyThresholdDialog.hpp"
+	"MyRotateDialog.hpp"
+	<wx/cmdproc.h>
+

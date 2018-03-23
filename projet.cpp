@@ -38,6 +38,7 @@ private:
 
     wxBitmap m_bitmap ;	// used to display the image
     MyImage *m_image ;	// used to load and process the image
+    MyImage *m_savedimage; //used to undo or redo the image
     int m_width;
     int m_height;
 };
@@ -57,7 +58,7 @@ private:
 	void OnOpenImage(wxCommandEvent& event);
 	void OnProcessImage(wxCommandEvent& event);
 	void OnSaveImage(wxCommandEvent& event);
-	void OnUndoImage (wxCommandProcessor& event); //sami
+	void OnUndoImage (wxCommandEvent& event); //sami
 
 	MyPanel *m_panel; // the panel inside the main frame
 
@@ -95,6 +96,7 @@ bool MyApp::OnInit(){
 MyPanel::MyPanel(wxWindow *parent)
 : wxPanel(parent){
     m_image = nullptr;
+    m_savedimage =nullptr; //ajouté
     Bind(wxEVT_PAINT, &MyPanel::OnPaint, this) ;
 }
 
@@ -196,6 +198,7 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size) 
 
 void MyPanel::OpenImage(wxString filename){
     m_image = new MyImage(filename);
+    m_savedimage=m_image;
 
     m_width = m_image->GetWidth();
     m_height = m_image->GetHeight();
@@ -216,10 +219,15 @@ void MyPanel::OnPaint(wxPaintEvent &WXUNUSED(event)){
 
 void MyPanel::MirrorImage(bool b){
     if (m_image != nullptr){
+
+
+
         if(b){
+                m_savedimage = new MyImage(*m_image);
             m_image->Mirror(true);
         }
         else{
+            m_savedimage = new MyImage(*m_image);
             m_image->Mirror(false);
         }
         Refresh();
@@ -228,13 +236,19 @@ void MyPanel::MirrorImage(bool b){
 
 void MyPanel::BlurImage(){
     if (m_image != nullptr){
+
+         m_savedimage = new MyImage(*m_image);
+
         *m_image = m_image->Blur(20);
+
         Refresh();
+
     }
 }
 
 void MyPanel::RotateImage(){
      if (m_image != nullptr){
+         m_savedimage = new MyImage(*m_image);
         MyRotateDialog *dlg = new MyRotateDialog(this, -1, wxDefaultPosition, wxSize(250,140));
         if (dlg->ShowModal()== wxID_OK){
             if(dlg->RadioBox1->GetSelection()==0){
@@ -255,6 +269,7 @@ void MyPanel::RotateImage(){
 }
 
 void MyPanel::NegativeImage(){
+    m_savedimage = new MyImage(*m_image);
     if (m_image != nullptr){
         m_image->Negative();
         Refresh();
@@ -262,6 +277,7 @@ void MyPanel::NegativeImage(){
 }
 
 void MyPanel::DesaturateImage(){
+    m_savedimage = new MyImage(*m_image);
     if (m_image != nullptr){
         m_image->Desaturate();
         Refresh();
@@ -269,6 +285,7 @@ void MyPanel::DesaturateImage(){
 }
 
 void MyPanel::ThresholdImage(){
+    m_savedimage = new MyImage(*m_image);
     if (m_image != nullptr){
         MyThresholdDialog *dlg = new MyThresholdDialog(this, -1, wxT("Threshold"), wxDefaultPosition, wxSize(250,140)) ;
         dlg->ShowModal() ;
@@ -278,6 +295,7 @@ void MyPanel::ThresholdImage(){
 }
 
 void MyPanel::PosterizeImage(){
+    m_savedimage = new MyImage(*m_image);
     if(m_image != nullptr){
         m_image->Posterize();
         Refresh();
@@ -289,6 +307,16 @@ void MyPanel::SaveImage(wxString fileName){
 }
 
 void MyPanel::UndoImage(){
+    if(m_image != nullptr){
+ //       m_savedimage = new MyImage(*m_image);
+        m_image= m_savedimage;
+
+    }
+    else{
+    wxLogMessage(wxT("Hello world from wxWidgets!"));
+}
+
+    Refresh();
 
 }
 
@@ -351,7 +379,7 @@ void MyFrame::OnSaveImage(wxCommandEvent& event){
     }
 }
 
-void MyFrame::OnUndoImage (wxCommandProcessor& event){
+void MyFrame::OnUndoImage (wxCommandEvent& event){
 
         m_panel->UndoImage();
 }
