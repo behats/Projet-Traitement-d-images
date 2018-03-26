@@ -24,14 +24,19 @@ void MyImage::Negative(){
 }
 
 void MyImage::Desaturate(){
-    unsigned char* data = this->GetData();
-    for(int i=0; i<(this->GetHeight()*this->GetWidth()*3); i++){
-        int L = 0.2126*data[i] + 0.7152*data[i+1] + 0.0722*data[i+2];
-        data[i] = L;
-        data[i+1] = L;
-        data[i+2] = L;
+
+    unsigned long L;
+    unsigned char* data= this->GetData();
+    for(int i=0; i < this->GetHeight()*this->GetWidth()*3; i=i+3){
+        L= 0.2126*data[i] + 0.7152*data[i+1] + 0.0722*data[i+2];
+        data[i]=L;
+        data[i+1]=L;
+        data[i+2]=L;
     }
+
 }
+
+
 
 void MyImage::Threshold(int seuil){
     Desaturate();

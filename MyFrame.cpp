@@ -21,14 +21,20 @@ enum	// énumération. Elle gère la numérotation automatiquement
 
 };
 
-MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
+MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size) //A RECOPIER
 : wxFrame(NULL, wxID_ANY, title, pos, size){
 
     m_panel = new MyPanel(this);
 
+    // Barre des tâches
+
+	wxMenuBar *menuBar = new wxMenuBar ;
+	SetMenuBar(menuBar) ;
+
+    //Menu des fichiers
+
 	wxMenu *menuFile = new wxMenu ;
-	menuFile->Append(ID_Hello, wxT("Hello...\tCtrl-H"), wxT("hello")) ;
-	Bind(wxEVT_MENU, &MyFrame::OnHello, this, ID_Hello) ;
+	menuBar->Append( menuFile, wxT("File" )) ;
 
 	menuFile->Append(wxID_OPEN);
 	Bind(wxEVT_MENU, &MyFrame::OnOpenImage, this, wxID_OPEN);
@@ -36,61 +42,79 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
 	menuFile->Append(ID_save, wxT("Save\tCtrl-S"));
 	Bind(wxEVT_MENU, &MyFrame::OnSaveImage, this, ID_save);
 
-	menuFile->Append(wxID_ABOUT);
-	Bind(wxEVT_MENU, &MyFrame::OnAbout, this, wxID_ABOUT);
-
 	menuFile->Append(ID_PlusLarge, wxT("Plus Large...\tCtrl+"));
 	Bind(wxEVT_MENU, &MyFrame::OnResize, this, ID_PlusLarge);
 
 	menuFile->Append(ID_MoinsLarge, wxT("Moins Large...\tCtrl-"));
 	Bind(wxEVT_MENU, &MyFrame::OnResize, this, ID_MoinsLarge);
 
+	menuFile->Append(ID_Hello, wxT("Hello...\tCtrl-H"), wxT("hello")) ;
+	Bind(wxEVT_MENU, &MyFrame::OnHello, this, ID_Hello) ;
+
+	menuFile->Append(wxID_ABOUT);
+	Bind(wxEVT_MENU, &MyFrame::OnAbout, this, wxID_ABOUT);
+
 	menuFile->Append(wxID_EXIT) ;
 	Bind(wxEVT_MENU, &MyFrame::OnExit, this, wxID_EXIT) ;
 
-	wxMenu *menuEdit = new wxMenu ;
-    menuEdit->Append(wxID_UNDO);
+	//Menu relatif aux manipulations
+
+    wxMenu *menuEdit = new wxMenu ;
+	menuBar->Append( menuEdit, wxT("Edit" ));
+
+	menuEdit->Append(wxID_UNDO);
 	Bind(wxEVT_MENU, &MyFrame::OnUndoImage, this, wxID_UNDO);
 
-	wxMenu *menuHelp = new wxMenu;
-	menuHelp->Append(ID_Encours, wxT("En cours...\tCtrl-E"));
-	Bind(wxEVT_MENU, &MyFrame::OnEnCours, this, ID_Encours);
+	menuEdit->Append(wxID_REDO);
+//	Bind(wxEVT_MENU, &MyFrame::OnRedoImage, this, wxID_REDO);
+
+	// Menu relatif au traitement des images
 
 	wxMenu *menuProcess = new wxMenu;
+	menuBar->Append( menuProcess, wxT("Process" ));
+
+	//Miroirs
+
 	menuProcess->Append(ID_MirrorH, wxT("Miroir horizontal"));
 	Bind(wxEVT_MENU, &MyFrame::OnProcessImage, this, ID_MirrorH);
 
 	menuProcess->Append(ID_MirrorV, wxT("Miroir vertical"));
 	Bind(wxEVT_MENU, &MyFrame::OnProcessImage, this, ID_MirrorV);
 
-	menuProcess->Append(ID_Blur, wxT("Flou"));
+	//Flou
+	menuProcess->Append(ID_Blur, wxT("Flou\tCtrl-F"));
 	Bind(wxEVT_MENU, &MyFrame::OnProcessImage, this, ID_Blur);
 
+	//Rotation
 	menuProcess->Append(ID_Rotate, wxT("Rotation"));
 	Bind(wxEVT_MENU, &MyFrame::OnProcessImage, this, ID_Rotate);
 
-	menuProcess->Append(ID_Negative, wxT("Negatif"));
+	menuProcess->Append(ID_Negative, wxT("Negatif\tCtrl-N"));
 	Bind(wxEVT_MENU, &MyFrame::OnProcessImage, this, ID_Negative);
 
-	menuProcess->Append(ID_Desaturate, wxT("Desaturate"));
+	menuProcess->Append(ID_Desaturate, wxT("Desaturate\tCtrl-D"));
 	Bind(wxEVT_MENU, &MyFrame::OnProcessImage, this, ID_Desaturate);
 
-	menuProcess->Append(ID_Threshold, wxT("Threshold"));
+	menuProcess->Append(ID_Threshold, wxT("Threshold\tCtrl-T"));
 	Bind(wxEVT_MENU, &MyFrame::OnProcessImage, this, ID_Threshold);
 
-	menuProcess->Append(ID_Posterize, wxT("Posterize"));
+	menuProcess->Append(ID_Posterize, wxT("Posterize\tCtrl-P"));
 	Bind(wxEVT_MENU, &MyFrame::OnProcessImage, this, ID_Posterize);
 
-	wxMenuBar *menuBar = new wxMenuBar ;
-	menuBar->Append( menuFile, wxT("File" )) ;
-	menuBar->Append( menuEdit, wxT("Edit"));
+	// Menu aide
+
+	wxMenu *menuHelp = new wxMenu;
 	menuBar->Append( menuHelp, wxT("Help" ));
-	menuBar->Append( menuProcess, wxT("Process" ));
-	SetMenuBar(menuBar) ;
+	menuHelp->Append(ID_Encours, wxT("En cours...\tCtrl-E"));
+	Bind(wxEVT_MENU, &MyFrame::OnEnCours, this, ID_Encours);
+
+
+	//
 
 	Bind(wxEVT_MOTION, &MyFrame::OnMouse, this);
     CreateStatusBar();
     SetStatusText(wxT("Hello!"));
+
 }
 
 void MyFrame::OnHello(wxCommandEvent& event){
@@ -152,6 +176,8 @@ void MyFrame::OnUndoImage (wxCommandEvent& event){
 
         m_panel->UndoImage();
 }
+
+//void MyFrame::OnRedoImage (wxCommandEvent& event){}
 
 void MyFrame::OnProcessImage(wxCommandEvent& event){
 

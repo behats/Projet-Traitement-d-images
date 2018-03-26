@@ -19,7 +19,7 @@ IMPLEMENT_APP(MyApp)
 
 bool MyApp::OnInit(){
 
-	MyFrame *frame = new MyFrame( wxT("wxProcess"), wxPoint(50, 50), wxSize(850, 640) );
+	MyFrame *frame = new MyFrame( wxT("The Amazing Image Processing"), wxPoint(50, 50), wxSize(850, 640) );
 	frame->Show(true);
 	frame->Centre(wxBOTH);
 	wxInitAllImageHandlers();

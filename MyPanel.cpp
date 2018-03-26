@@ -43,11 +43,13 @@ void MyPanel::OnPaint(wxPaintEvent &WXUNUSED(event)){
 void MyPanel::MirrorImage(bool b){
     if (m_image != nullptr){
         if(b){
-            m_savedimage = new MyImage(*m_image);
+            m_savedimage = new MyImage(m_width,m_height);
+            *m_savedimage = m_image->Copy() ;
             m_image->Mirror(true);
         }
         else{
-            m_savedimage = new MyImage(*m_image);
+            m_savedimage = new MyImage(m_width,m_height);
+            *m_savedimage = m_image->Copy() ;
             m_image->Mirror(false);
         }
         Refresh();
@@ -62,7 +64,17 @@ void MyPanel::BlurImage(){
     }
 }
 
+void MyPanel::NegativeImage(){
+    if (m_image != nullptr){
+        m_savedimage = new MyImage(m_width,m_height);
+        *m_savedimage = m_image->Copy() ;
+        m_image->Negative();
+        Refresh();
+    }
+}
+
 void MyPanel::RotateImage(){
+    m_savedimage = new MyImage(*m_image);
      if (m_image != nullptr){
         m_savedimage = new MyImage(*m_image);
         MyRotateDialog *dlg = new MyRotateDialog(this, -1, wxDefaultPosition, wxSize(250,140));
@@ -84,17 +96,12 @@ void MyPanel::RotateImage(){
      }
 }
 
-void MyPanel::NegativeImage(){
-    if (m_image != nullptr){
-        m_savedimage = new MyImage(*m_image);
-        m_image->Negative();
-        Refresh();
-    }
-}
+
 
 void MyPanel::DesaturateImage(){
     if (m_image != nullptr){
-        m_savedimage = new MyImage(*m_image);
+        m_savedimage = new MyImage(m_width,m_height);
+        *m_savedimage = m_image->Copy() ;
         m_image->Desaturate();
         Refresh();
     }
@@ -102,6 +109,8 @@ void MyPanel::DesaturateImage(){
 
 void MyPanel::ThresholdImage(){
     if (m_image != nullptr){
+        m_savedimage = new MyImage(m_width,m_height);
+        *m_savedimage = m_image->Copy() ;
         MyThresholdDialog *dlg = new MyThresholdDialog(this, -1, wxT("Threshold"), wxDefaultPosition, wxSize(250,140)) ;
         dlg->ShowModal() ;
         m_image->Threshold(dlg->m_threshold->GetValue());
@@ -124,7 +133,8 @@ void MyPanel::ThresholdImage(){
 
 void MyPanel::PosterizeImage(){
     if(m_image != nullptr){
-        m_savedimage = new MyImage(*m_image);
+        m_savedimage = new MyImage(m_width,m_height);
+        *m_savedimage = m_image->Copy() ;
         m_image->Posterize();
         Refresh();
     }
