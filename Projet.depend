@@ -1746,3 +1746,58 @@
 	"MyRotateDialog.hpp"
 	"MyThresholdDialog.hpp"
 
+1523353497 source:/users/info/etu-s4/jayetlan/Documents/M4105C/git/Projet-Traitement-d-images/MyFrame.cpp
+	"MyFrame.hpp"
+
+1523024198 /users/info/etu-s4/jayetlan/Documents/M4105C/git/Projet-Traitement-d-images/MyFrame.hpp
+	<wx/wxprec.h>
+	<wx/wx.h>
+	<wx/filedlg.h>
+	"MyPanel.hpp"
+
+1523021771 /users/info/etu-s4/jayetlan/Documents/M4105C/git/Projet-Traitement-d-images/MyPanel.hpp
+	<wx/wxprec.h>
+	<wx/wx.h>
+	<wx/filedlg.h>
+	"MyImage.hpp"
+
+1522071027 /users/info/etu-s4/jayetlan/Documents/M4105C/git/Projet-Traitement-d-images/MyImage.hpp
+	<wx/wxprec.h>
+	<wx/wx.h>
+
+1522071906 source:/users/info/etu-s4/jayetlan/Documents/M4105C/git/Projet-Traitement-d-images/MyImage.cpp
+	"MyImage.hpp"
+	<vector>
+
+1523348966 source:/users/info/etu-s4/jayetlan/Documents/M4105C/git/Projet-Traitement-d-images/MyPanel.cpp
+	"MyImage.hpp"
+	"MyPanel.hpp"
+	"MyRotateDialog.hpp"
+	"MyThresholdDialog.hpp"
+
+1522071027 /users/info/etu-s4/jayetlan/Documents/M4105C/git/Projet-Traitement-d-images/MyRotateDialog.hpp
+	<wx/radiobox.h>
+	<wx/button.h>
+	<wx/dialog.h>
+
+1522152682 /users/info/etu-s4/jayetlan/Documents/M4105C/git/Projet-Traitement-d-images/MyThresholdDialog.hpp
+	<wx/wxprec.h>
+	<wx/wx.h>
+	<wx/filedlg.h>
+
+1522071027 source:/users/info/etu-s4/jayetlan/Documents/M4105C/git/Projet-Traitement-d-images/MyRotateDialog.cpp
+	"MyRotateDialog.hpp"
+	<wx/intl.h>
+	<wx/string.h>
+
+1522152614 source:/users/info/etu-s4/jayetlan/Documents/M4105C/git/Projet-Traitement-d-images/MyThresholdDialog.cpp
+	"MyThresholdDialog.hpp"
+
+1523021099 source:/users/info/etu-s4/jayetlan/Documents/M4105C/git/Projet-Traitement-d-images/projet.cpp
+	<wx/wxprec.h>
+	<wx/wx.h>
+	<wx/filedlg.h>
+	"MyFrame.hpp"
+	"MyThresholdDialog.hpp"
+	"MyRotateDialog.hpp"
+

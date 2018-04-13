@@ -6,6 +6,8 @@
 #include <wx/filedlg.h>
 #endif
 
+wxDECLARE_EVENT(MON_EVENEMENT, wxCommandEvent);
+
 class MyThresholdDialog : public wxDialog
 {
 private:
@@ -16,6 +18,8 @@ public:
 	MyThresholdDialog( wxWindow* parent, wxWindowID id = wxID_ANY,
 		const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition,
 		const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE );
+
+    void OnScroll( wxScrollEvent& event );
     ~MyThresholdDialog();
 };
 #endif // MYTHRESHOLDDIALOG_H

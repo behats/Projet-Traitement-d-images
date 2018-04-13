@@ -7,14 +7,24 @@
 //#include <vector>
 
 using namespace std;
+wxDEFINE_EVENT(MON_EVENEMENT, wxCommandEvent);
+
 
 MyPanel::MyPanel(wxWindow *parent)
 : wxPanel(parent){
     m_image = nullptr;
     m_savedimage =nullptr;
     Bind(wxEVT_PAINT, &MyPanel::OnPaint, this) ;
+    Bind(MON_EVENEMENT, &MyPanel::OnThresholdImage, this) ;
 }
 
+/*MyPanel::MyPanel( wxWindow *parent, wxWindowID id=wxID_ANY, const wxPoint &pos=wxDefaultPosition, const wxSize &size=wxDefaultSize)
+: wxPanel(parent, id, pos, size){
+    m_image = nullptr;
+    m_savedimage =nullptr;
+    Bind(wxEVT_PAINT, &MyPanel::OnPaint, this) ;
+    Bind(MON_EVENEMENT, &MyPanel::OnThresholdImage, this) ;
+}*/
 MyPanel::~MyPanel(){
 
 }
@@ -23,10 +33,19 @@ void MyPanel::OpenImage(wxString filename){
     m_image = new MyImage(filename);
     m_savedimage=m_image;
 
-    m_width = m_image->GetWidth();
-    m_height = m_image->GetHeight();
-    SetSize(m_width,m_height);
-    this->GetParent()->SetClientSize(m_width,m_height);
+    wxSize panel_size = GetSize();
+    m_width = panel_size.GetWidth();
+    m_height = panel_size.GetHeight();
+
+    int img_width = m_image->GetWidth();
+    int img_height = m_image->GetHeight();
+
+    int dw = m_width-img_width;
+    int dh = m_height-img_height;
+    SetSize(img_width,img_height);
+
+    wxSize frame_size = this->GetParent()->GetSize();
+    this->GetParent()->SetClientSize(frame_size.GetWidth()-dw,frame_size.GetHeight()-dh);
 
     Refresh();
 }
@@ -96,8 +115,6 @@ void MyPanel::RotateImage(){
      }
 }
 
-
-
 void MyPanel::DesaturateImage(){
     if (m_image != nullptr){
         m_savedimage = new MyImage(m_width,m_height);
@@ -108,27 +125,37 @@ void MyPanel::DesaturateImage(){
 }
 
 void MyPanel::ThresholdImage(){
-    if (m_image != nullptr){
+    /*if (m_image != nullptr){
         m_savedimage = new MyImage(m_width,m_height);
         *m_savedimage = m_image->Copy() ;
         MyThresholdDialog *dlg = new MyThresholdDialog(this, -1, wxT("Threshold"), wxDefaultPosition, wxSize(250,140)) ;
         dlg->ShowModal() ;
         m_image->Threshold(dlg->m_threshold->GetValue());
         Refresh();
-    }
+    }*/
     //New version (TP7)
-    /*if (m_image != nullptr){
-        MyImage sauv = m_image;
-        MyThresholdDialog *dlg = new MyThresholdDialog(this, -1, wxT("Threshold"), wxDefaultPosition, wxSize(250,140)) ;
-        if (dlg->ShowModal() == wxID_OK){
+    if (m_image != nullptr){
+        m_savedimage = new MyImage(*m_image);
 
+        MyThresholdDialog *dlg = new MyThresholdDialog(this, -1, wxT("Threshold"), wxDefaultPosition, wxSize(250,140)) ;
+        //dlg->ShowModal();
+
+        if (dlg->ShowModal() == wxID_OK){
+            m_image->Threshold(dlg->m_threshold->GetValue());
+            Refresh();
         }
         else{
-            m_image = sauv;
-            delete(sauv);
+            m_image = m_savedimage;
+            Refresh();
         }
 
-    }*/
+    }
+}
+
+void MyPanel::OnThresholdImage(wxCommandEvent& event){
+    int seuil = event.GetInt();
+    m_image->Threshold(seuil);
+    Refresh();
 }
 
 void MyPanel::PosterizeImage(){

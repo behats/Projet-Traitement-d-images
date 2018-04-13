@@ -11,7 +11,8 @@
 class MyPanel: public wxPanel{
 
 public:
-    MyPanel( wxWindow *parent ) ;
+    MyPanel(wxWindow *parent);
+    //MyPanel(wxWindow *parent, wxWindowID id=wxID_ANY, const wxPoint &pos=wxDefaultPosition, const wxSize &size=wxDefaultSize);
     void OpenImage(wxString fileName);
     void OnPaint(wxPaintEvent &WXUNUSED(event));
     void MirrorImage(bool b);
@@ -20,10 +21,12 @@ public:
     void NegativeImage();
     void DesaturateImage();
     void ThresholdImage();
+    void OnThresholdImage(wxCommandEvent& event);
     void PosterizeImage();
     void NbColorImage();
     void SaveImage(wxString fileName);
     void UndoImage();
+
     ~MyPanel() ;
 
 private:
@@ -33,5 +36,6 @@ private:
     MyImage *m_savedimage; //used to undo or redo the image
     int m_width;
     int m_height;
+
 };
 #endif // MYPANEl_H

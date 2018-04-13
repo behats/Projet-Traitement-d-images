@@ -36,8 +36,6 @@ void MyImage::Desaturate(){
 
 }
 
-
-
 void MyImage::Threshold(int seuil){
     Desaturate();
     unsigned char* data = this->GetData();
