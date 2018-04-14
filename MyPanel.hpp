@@ -26,6 +26,8 @@ public:
     void NbColorImage();
     void SaveImage(wxString fileName);
     void UndoImage();
+    void RedoImage();
+    void ResetImage();
 
     ~MyPanel() ;
 
@@ -33,7 +35,9 @@ private:
 
     wxBitmap m_bitmap ;	// used to display the image
     MyImage *m_image ;	// used to load and process the image
-    MyImage *m_savedimage; //used to undo or redo the image
+    MyImage *m_originimage;
+    MyImage *m_undoimage; //used to undo the image
+    MyImage *m_redoimage;
     int m_width;
     int m_height;
 

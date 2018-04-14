@@ -17,7 +17,8 @@ enum	// énumération. Elle gère la numérotation automatiquement
 	ID_Desaturate,
 	ID_Threshold,
 	ID_Posterize,
-	ID_save
+	ID_save,
+	ID_Reset
 
 };
 
@@ -43,6 +44,7 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size) 
 
     wxButton *btn_miroirH = new wxButton(m_panelProcess,ID_MirrorH,wxT("Miroir horizontal"),wxPoint(25,10),wxSize(110,30),0,wxDefaultValidator,wxButtonNameStr);
     Bind(wxEVT_BUTTON, &MyFrame::OnProcessImage, this, ID_MirrorH);
+    //btn_miroirH->SetBitmap(wxBitmap("miroirH2.jpg"));
 
     wxButton *btn_miroirV = new wxButton(m_panelProcess,ID_MirrorV,wxT("Miroir vertical"),wxPoint(145,10),wxSize(110,30),0,wxDefaultValidator,wxButtonNameStr);
     Bind(wxEVT_BUTTON, &MyFrame::OnProcessImage, this, ID_MirrorV);
@@ -67,9 +69,9 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size) 
     sizer_vertical->Add(m_panelProcess, 1, wxBOTTOM | wxEXPAND, 5);
 
     //Création de la zone du bas à droite
-    MyPanel *m_panelSecondaire = new MyPanel(this);
+   /* MyPanel *m_panelSecondaire = new MyPanel(this);
     m_panelSecondaire->SetBackgroundColour('#dbd7d7');
-    sizer_vertical->Add(m_panelSecondaire, 2, wxALL | wxEXPAND, 0);
+    sizer_vertical->Add(m_panelSecondaire, 2, wxALL | wxEXPAND, 0);*/
 
 
     //menu file
@@ -92,23 +94,26 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size) 
 	menuEdit->Append(wxID_REDO);
 	Bind(wxEVT_MENU, &MyFrame::OnRedoImage, this, wxID_REDO);
 
+	menuEdit->Append(ID_Reset, wxT("Reset\tCtrl-R"));
+	Bind(wxEVT_MENU, &MyFrame::OnResetImage, this, ID_Reset);
+
 	//menu window
 	wxMenu *menuWindow = new wxMenu;
-	menuWindow->Append(ID_PlusLarge, wxT("Plus Large...\tCtrl+"));
+	menuWindow->Append(ID_PlusLarge, wxT("Plus Large\tShift-Ctrl-L"));
 	Bind(wxEVT_MENU, &MyFrame::OnResize, this, ID_PlusLarge);
 
-	menuWindow->Append(ID_MoinsLarge, wxT("Moins Large...\tCtrl-"));
+	menuWindow->Append(ID_MoinsLarge, wxT("Moins Large\tCtrl-L"));
 	Bind(wxEVT_MENU, &MyFrame::OnResize, this, ID_MoinsLarge);
 
 	//menu help
 	wxMenu *menuHelp = new wxMenu;
-	menuHelp->Append(ID_Hello, wxT("Hello...\tCtrl-H"), wxT("hello")) ;
+	menuHelp->Append(ID_Hello, wxT("Hello\tCtrl-H")) ;
 	Bind(wxEVT_MENU, &MyFrame::OnHello, this, ID_Hello) ;
 
 	menuHelp->Append(wxID_ABOUT);
 	Bind(wxEVT_MENU, &MyFrame::OnAbout, this, wxID_ABOUT);
 
-	menuHelp->Append(ID_Encours, wxT("En cours...\tCtrl-E"));
+	menuHelp->Append(ID_Encours, wxT("En cours\tCtrl-E"));
 	Bind(wxEVT_MENU, &MyFrame::OnEnCours, this, ID_Encours);
 
 	//barre menu
@@ -123,9 +128,6 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size) 
 	Bind(wxEVT_MOTION, &MyFrame::OnMouse, this);
     CreateStatusBar();
     SetStatusText(wxT("Hello!"));
-
-
-
 }
 
 void MyFrame::OnHello(wxCommandEvent& event){
@@ -133,7 +135,7 @@ void MyFrame::OnHello(wxCommandEvent& event){
 }
 
 void MyFrame::OnExit(wxCommandEvent& event){
-	Close( true );
+	Close(true);
 }
 
 void MyFrame::OnOpenImage(wxCommandEvent& event){
@@ -146,7 +148,7 @@ void MyFrame::OnOpenImage(wxCommandEvent& event){
 }
 
 void MyFrame::OnAbout(wxCommandEvent& event){
-    wxLogMessage(wxT("Auteur: Antoine Jayet-Laraffe 2017/2018"));
+    wxLogMessage(wxT("Auteur:\nAntoine Jayet-Laraffe\nSami Behat\n2017/2018"));
 }
 
 void MyFrame::OnEnCours(wxCommandEvent& event){
@@ -185,12 +187,17 @@ void MyFrame::OnSaveImage(wxCommandEvent& event){
     }
 }
 
-void MyFrame::OnUndoImage (wxCommandEvent& event){
-
-        m_panelPrincipal->UndoImage();
+void MyFrame::OnUndoImage(wxCommandEvent& event){
+    m_panelPrincipal->UndoImage();
 }
 
-void MyFrame::OnRedoImage (wxCommandEvent& event){}
+void MyFrame::OnRedoImage(wxCommandEvent& event){
+    m_panelPrincipal->RedoImage();
+}
+
+void MyFrame::OnResetImage(wxCommandEvent& event){
+    m_panelPrincipal->ResetImage();
+}
 
 void MyFrame::OnProcessImage(wxCommandEvent& event){
 

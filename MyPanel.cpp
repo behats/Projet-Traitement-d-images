@@ -13,7 +13,9 @@ wxDEFINE_EVENT(MON_EVENEMENT, wxCommandEvent);
 MyPanel::MyPanel(wxWindow *parent)
 : wxPanel(parent){
     m_image = nullptr;
-    m_savedimage =nullptr;
+    m_undoimage = nullptr;
+    m_originimage = nullptr;
+    m_redoimage = nullptr;
     Bind(wxEVT_PAINT, &MyPanel::OnPaint, this) ;
     Bind(MON_EVENEMENT, &MyPanel::OnThresholdImage, this) ;
 }
@@ -31,7 +33,10 @@ MyPanel::~MyPanel(){
 
 void MyPanel::OpenImage(wxString filename){
     m_image = new MyImage(filename);
-    m_savedimage=m_image;
+    m_originimage = new MyImage(m_width,m_height);
+    *m_originimage = m_image->Copy();
+    m_undoimage = m_image;
+    m_redoimage = m_image;
 
     wxSize panel_size = GetSize();
     m_width = panel_size.GetWidth();
@@ -61,14 +66,14 @@ void MyPanel::OnPaint(wxPaintEvent &WXUNUSED(event)){
 
 void MyPanel::MirrorImage(bool b){
     if (m_image != nullptr){
-        if(b){
-            m_savedimage = new MyImage(m_width,m_height);
-            *m_savedimage = m_image->Copy() ;
+        if(!b){
+            m_undoimage = new MyImage(m_width,m_height);
+            *m_undoimage = m_image->Copy() ;
             m_image->Mirror(true);
         }
         else{
-            m_savedimage = new MyImage(m_width,m_height);
-            *m_savedimage = m_image->Copy() ;
+            m_undoimage = new MyImage(m_width,m_height);
+            *m_undoimage = m_image->Copy() ;
             m_image->Mirror(false);
         }
         Refresh();
@@ -77,7 +82,7 @@ void MyPanel::MirrorImage(bool b){
 
 void MyPanel::BlurImage(){
     if (m_image != nullptr){
-        m_savedimage = new MyImage(*m_image);
+        m_undoimage = new MyImage(*m_image);
         *m_image = m_image->Blur(20);
         Refresh();
     }
@@ -85,17 +90,17 @@ void MyPanel::BlurImage(){
 
 void MyPanel::NegativeImage(){
     if (m_image != nullptr){
-        m_savedimage = new MyImage(m_width,m_height);
-        *m_savedimage = m_image->Copy() ;
+        m_undoimage = new MyImage(m_width,m_height);
+        *m_undoimage = m_image->Copy() ;
         m_image->Negative();
         Refresh();
     }
 }
 
 void MyPanel::RotateImage(){
-    m_savedimage = new MyImage(*m_image);
+    m_undoimage = new MyImage(*m_image);
      if (m_image != nullptr){
-        m_savedimage = new MyImage(*m_image);
+        m_undoimage = new MyImage(*m_image);
         MyRotateDialog *dlg = new MyRotateDialog(this, -1, wxDefaultPosition, wxSize(250,140));
         if (dlg->ShowModal() == wxID_OK){
             if(dlg->RadioBox1->GetSelection()==0){
@@ -117,8 +122,8 @@ void MyPanel::RotateImage(){
 
 void MyPanel::DesaturateImage(){
     if (m_image != nullptr){
-        m_savedimage = new MyImage(m_width,m_height);
-        *m_savedimage = m_image->Copy() ;
+        m_undoimage = new MyImage(m_width,m_height);
+        *m_undoimage = m_image->Copy() ;
         m_image->Desaturate();
         Refresh();
     }
@@ -135,17 +140,18 @@ void MyPanel::ThresholdImage(){
     }*/
     //New version (TP7)
     if (m_image != nullptr){
-        m_savedimage = new MyImage(*m_image);
+        m_undoimage = new MyImage(*m_image);
+        *m_undoimage = m_image->Copy() ;
 
         MyThresholdDialog *dlg = new MyThresholdDialog(this, -1, wxT("Threshold"), wxDefaultPosition, wxSize(250,140)) ;
-        //dlg->ShowModal();
+        int n = dlg->ShowModal();
 
-        if (dlg->ShowModal() == wxID_OK){
+        if (n == wxID_OK){
             m_image->Threshold(dlg->m_threshold->GetValue());
             Refresh();
         }
         else{
-            m_image = m_savedimage;
+            m_image = m_undoimage;
             Refresh();
         }
 
@@ -160,8 +166,8 @@ void MyPanel::OnThresholdImage(wxCommandEvent& event){
 
 void MyPanel::PosterizeImage(){
     if(m_image != nullptr){
-        m_savedimage = new MyImage(m_width,m_height);
-        *m_savedimage = m_image->Copy() ;
+        m_undoimage = new MyImage(m_width,m_height);
+        *m_undoimage = m_image->Copy() ;
         m_image->Posterize();
         Refresh();
     }
@@ -174,13 +180,22 @@ void MyPanel::SaveImage(wxString fileName){
 void MyPanel::UndoImage(){
     if(m_image != nullptr){
  //       m_savedimage = new MyImage(*m_image);
-        m_image= m_savedimage;
+        *m_redoimage = m_image->Copy();
+        m_image = m_undoimage;
+        Refresh();
 
     }
-    else{
-    wxLogMessage(wxT("Hello world from wxWidgets!"));
+}
+void MyPanel::RedoImage(){
+    if(m_image != nullptr){
+        m_image = m_redoimage;
+        Refresh();
+    }
 }
 
-    Refresh();
-
+void MyPanel::ResetImage(){
+    if(m_image != nullptr){
+        m_image = m_originimage;
+        Refresh();
+    }
 }

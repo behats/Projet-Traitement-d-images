@@ -1746,16 +1746,16 @@
 	"MyRotateDialog.hpp"
 	"MyThresholdDialog.hpp"
 
-1523353497 source:/users/info/etu-s4/jayetlan/Documents/M4105C/git/Projet-Traitement-d-images/MyFrame.cpp
+1523718368 source:/users/info/etu-s4/jayetlan/Documents/M4105C/git/Projet-Traitement-d-images/MyFrame.cpp
 	"MyFrame.hpp"
 
-1523024198 /users/info/etu-s4/jayetlan/Documents/M4105C/git/Projet-Traitement-d-images/MyFrame.hpp
+1523717540 /users/info/etu-s4/jayetlan/Documents/M4105C/git/Projet-Traitement-d-images/MyFrame.hpp
 	<wx/wxprec.h>
 	<wx/wx.h>
 	<wx/filedlg.h>
 	"MyPanel.hpp"
 
-1523021771 /users/info/etu-s4/jayetlan/Documents/M4105C/git/Projet-Traitement-d-images/MyPanel.hpp
+1523719324 /users/info/etu-s4/jayetlan/Documents/M4105C/git/Projet-Traitement-d-images/MyPanel.hpp
 	<wx/wxprec.h>
 	<wx/wx.h>
 	<wx/filedlg.h>
@@ -1769,7 +1769,7 @@
 	"MyImage.hpp"
 	<vector>
 
-1523348966 source:/users/info/etu-s4/jayetlan/Documents/M4105C/git/Projet-Traitement-d-images/MyPanel.cpp
+1523718593 source:/users/info/etu-s4/jayetlan/Documents/M4105C/git/Projet-Traitement-d-images/MyPanel.cpp
 	"MyImage.hpp"
 	"MyPanel.hpp"
 	"MyRotateDialog.hpp"
