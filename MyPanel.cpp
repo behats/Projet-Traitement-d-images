@@ -12,6 +12,7 @@ MyPanel::MyPanel(wxWindow *parent)
 : wxPanel(parent){
     m_image = nullptr;
     m_savedimage =nullptr;
+    m_returnimage=nullptr;
     Bind(wxEVT_PAINT, &MyPanel::OnPaint, this) ;
 }
 
@@ -22,6 +23,7 @@ MyPanel::~MyPanel(){
 void MyPanel::OpenImage(wxString filename){
     m_image = new MyImage(filename);
     m_savedimage=m_image;
+    m_returnimage= m_image;
 
     m_width = m_image->GetWidth();
     m_height = m_image->GetHeight();
@@ -54,13 +56,21 @@ void MyPanel::MirrorImage(bool b){
         }
         Refresh();
     }
+    else{
+    wxLogMessage(wxT("Il n'y a aucune image à traiter."));
+    }
 }
 
 void MyPanel::BlurImage(){
     if (m_image != nullptr){
         m_savedimage = new MyImage(*m_image);
+        m_returnimage = m_image;
         *m_image = m_image->Blur(20);
         Refresh();
+
+    }
+    else{
+    wxLogMessage(wxT("Il n'y a aucune image à traiter."));
     }
 }
 
@@ -70,6 +80,9 @@ void MyPanel::NegativeImage(){
         *m_savedimage = m_image->Copy() ;
         m_image->Negative();
         Refresh();
+    }
+    else{
+    wxLogMessage(wxT("Il n'y a aucune image à traiter."));
     }
 }
 
@@ -94,6 +107,9 @@ void MyPanel::RotateImage(){
         }
         Refresh();
      }
+     else{
+    wxLogMessage(wxT("Il n'y a aucune image à traiter."));
+    }
 }
 
 
@@ -105,16 +121,26 @@ void MyPanel::DesaturateImage(){
         m_image->Desaturate();
         Refresh();
     }
+    else{
+    wxLogMessage(wxT("Il n'y a aucune image à traiter."));
+    }
 }
 
 void MyPanel::ThresholdImage(){
     if (m_image != nullptr){
         m_savedimage = new MyImage(m_width,m_height);
         *m_savedimage = m_image->Copy() ;
+
         MyThresholdDialog *dlg = new MyThresholdDialog(this, -1, wxT("Threshold"), wxDefaultPosition, wxSize(250,140)) ;
-        dlg->ShowModal() ;
-        m_image->Threshold(dlg->m_threshold->GetValue());
+        int rep = dlg->ShowModal() ;
+        if (rep == wxID_OK){
+            m_image->Threshold(dlg->m_threshold->GetValue());
+        }
+    //else if (dlg->ShowModal()== wx)
         Refresh();
+    }
+    else{
+    wxLogMessage(wxT("Il n'y a aucune image à traiter."));
     }
     //New version (TP7)
     /*if (m_image != nullptr){
@@ -138,6 +164,9 @@ void MyPanel::PosterizeImage(){
         m_image->Posterize();
         Refresh();
     }
+    else{
+    wxLogMessage(wxT("Il n'y a aucune image à traiter."));
+    }
 }
 
 void MyPanel::SaveImage(wxString fileName){
@@ -147,11 +176,41 @@ void MyPanel::SaveImage(wxString fileName){
 void MyPanel::UndoImage(){
     if(m_image != nullptr){
  //       m_savedimage = new MyImage(*m_image);
-        m_image= m_savedimage;
+
+         //m_returnimage=m_image;
+        //m_image=m_savedimage;
+        //m_savedimage=m_returnimage;
+
+        m_image=m_savedimage;
 
     }
     else{
-    wxLogMessage(wxT("Hello world from wxWidgets!"));
+    wxLogMessage(wxT("Il n'y a aucune image à traiter."));
+}
+
+    Refresh();
+
+}
+
+void MyPanel::RedoImage(){
+    if(m_image != nullptr){
+ //       m_savedimage = new MyImage(*m_image);
+        //m_returnimage=m_savedimage;
+       // m_savedimage=m_image;
+        //m_image=m_returnimage;
+
+        m_savedimage=m_returnimage;
+       /* m_returnimage=m_image;
+        m_image=m_savedimage;
+        m_savedimage=m_returnimage; */
+
+
+
+
+
+    }
+    else{
+    wxLogMessage(wxT("Il n'y a aucune image à traiter."));
 }
 
     Refresh();

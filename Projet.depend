@@ -1691,16 +1691,18 @@
 	"MyRotateDialog.hpp"
 	"MyThresholdDialog.hpp"
 
-1521795494 source:/users/info/etu-s4/behats/git/Projet-Traitement-d-images/MyFrame.cpp
+1523351537 source:/users/info/etu-s4/behats/git/Projet-Traitement-d-images/MyFrame.cpp
 	"MyFrame.hpp"
+	"MyExitDialog.hpp"
 
-1521793272 /users/info/etu-s4/behats/git/Projet-Traitement-d-images/MyFrame.hpp
+1522149769 /users/info/etu-s4/behats/git/Projet-Traitement-d-images/MyFrame.hpp
 	<wx/wxprec.h>
 	<wx/wx.h>
+	<wx/event.h>
 	<wx/filedlg.h>
 	"MyPanel.hpp"
 
-1521793272 /users/info/etu-s4/behats/git/Projet-Traitement-d-images/MyPanel.hpp
+1523349934 /users/info/etu-s4/behats/git/Projet-Traitement-d-images/MyPanel.hpp
 	<wx/wxprec.h>
 	<wx/wx.h>
 	<wx/filedlg.h>
@@ -1724,7 +1726,7 @@
 	<wx/button.h>
 	<wx/dialog.h>
 
-1521793272 source:/users/info/etu-s4/behats/git/Projet-Traitement-d-images/MyThresholdDialog.cpp
+1523023990 source:/users/info/etu-s4/behats/git/Projet-Traitement-d-images/MyThresholdDialog.cpp
 	"MyThresholdDialog.hpp"
 
 1521793272 /users/info/etu-s4/behats/git/Projet-Traitement-d-images/MyThresholdDialog.hpp
@@ -1740,9 +1742,17 @@
 	"MyThresholdDialog.hpp"
 	"MyRotateDialog.hpp"
 
-1521795140 source:/users/info/etu-s4/behats/git/Projet-Traitement-d-images/MyPanel.cpp
+1523349934 source:/users/info/etu-s4/behats/git/Projet-Traitement-d-images/MyPanel.cpp
 	"MyImage.hpp"
 	"MyPanel.hpp"
 	"MyRotateDialog.hpp"
 	"MyThresholdDialog.hpp"
+
+1523353787 source:/users/info/etu-s4/behats/git/Projet-Traitement-d-images/MyExitDialog.cpp
+	"MyExitDialog.hpp"
+
+1523353878 /users/info/etu-s4/behats/git/Projet-Traitement-d-images/MyExitDialog.hpp
+	<wx/wxprec.h>
+	<wx/wx.h>
+	<wx/filedlg.h>
 

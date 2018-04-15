@@ -1,5 +1,7 @@
 
 #include "MyFrame.hpp"
+#include "MyExitDialog.hpp"
+
 
 using namespace std;
 
@@ -17,8 +19,9 @@ enum	// énumération. Elle gère la numérotation automatiquement
 	ID_Desaturate,
 	ID_Threshold,
 	ID_Posterize,
-	ID_save
-
+	ID_save,
+	ID_draw,
+	ID_no
 };
 
 MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size) //A RECOPIER
@@ -39,8 +42,8 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size) 
 	menuFile->Append(wxID_OPEN);
 	Bind(wxEVT_MENU, &MyFrame::OnOpenImage, this, wxID_OPEN);
 
-	menuFile->Append(ID_save, wxT("Save\tCtrl-S"));
-	Bind(wxEVT_MENU, &MyFrame::OnSaveImage, this, ID_save);
+	menuFile->Append(wxID_SAVE);
+	Bind(wxEVT_MENU, &MyFrame::OnSaveImage, this, wxID_SAVE);
 
 	menuFile->Append(ID_PlusLarge, wxT("Plus Large...\tCtrl+"));
 	Bind(wxEVT_MENU, &MyFrame::OnResize, this, ID_PlusLarge);
@@ -50,9 +53,6 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size) 
 
 	menuFile->Append(ID_Hello, wxT("Hello...\tCtrl-H"), wxT("hello")) ;
 	Bind(wxEVT_MENU, &MyFrame::OnHello, this, ID_Hello) ;
-
-	menuFile->Append(wxID_ABOUT);
-	Bind(wxEVT_MENU, &MyFrame::OnAbout, this, wxID_ABOUT);
 
 	menuFile->Append(wxID_EXIT) ;
 	Bind(wxEVT_MENU, &MyFrame::OnExit, this, wxID_EXIT) ;
@@ -66,7 +66,7 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size) 
 	Bind(wxEVT_MENU, &MyFrame::OnUndoImage, this, wxID_UNDO);
 
 	menuEdit->Append(wxID_REDO);
-//	Bind(wxEVT_MENU, &MyFrame::OnRedoImage, this, wxID_REDO);
+	Bind(wxEVT_MENU, &MyFrame::OnRedoImage, this, wxID_REDO);
 
 	// Menu relatif au traitement des images
 
@@ -101,12 +101,18 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size) 
 	menuProcess->Append(ID_Posterize, wxT("Posterize\tCtrl-P"));
 	Bind(wxEVT_MENU, &MyFrame::OnProcessImage, this, ID_Posterize);
 
+	//menuProcess->Append(ID_draw, wxT("Draw\tCtrl-D"));
+	//Bind(wxEVT_MENU, &MyFrame::OnDrawImage, this, ID_draw);
+
 	// Menu aide
 
 	wxMenu *menuHelp = new wxMenu;
+
 	menuBar->Append( menuHelp, wxT("Help" ));
 	menuHelp->Append(ID_Encours, wxT("En cours...\tCtrl-E"));
 	Bind(wxEVT_MENU, &MyFrame::OnEnCours, this, ID_Encours);
+	menuHelp->Append(wxID_ABOUT);
+	Bind(wxEVT_MENU, &MyFrame::OnAbout, this, wxID_ABOUT);
 
 
 	//
@@ -121,9 +127,7 @@ void MyFrame::OnHello(wxCommandEvent& event){
 	wxLogMessage(wxT("Hello world from wxWidgets!"));
 }
 
-void MyFrame::OnExit(wxCommandEvent& event){
-	Close( true );
-}
+
 
 void MyFrame::OnOpenImage(wxCommandEvent& event){
     wxString img = wxFileSelector();
@@ -132,13 +136,38 @@ void MyFrame::OnOpenImage(wxCommandEvent& event){
     }
 }
 
-void MyFrame::OnAbout(wxCommandEvent& event){
-    wxLogMessage(wxT("Auteur: Antoine Jayet-Laraffe 2017/2018"));
+void MyFrame::OnExit(wxCommandEvent& e){
+
+MyExitDialog *dlg = new MyExitDialog(this);
+int rep = dlg->ShowModal();
+        if (rep == wxID_OK){
+                wxString filename = wxSaveFileSelector(wxT("Save as"),wxT(".png"),wxT("NomFichier"));
+                m_panel->SaveImage(filename);
+                Close(true);        }
+        else if( rep == wxID_CLOSE_ALL){
+
+            Close(true);
+        }
+        else if (rep == wxID_CANCEL){
+            wxLogMessage(wxT("Auteur: Antoine Jayet-Laraffe et Sami Behat 2017/2018"));
+        }
+
+        Refresh();
+
 }
+
+
+void MyFrame::OnAbout(wxCommandEvent& event){
+    wxLogMessage(wxT("Auteur: Antoine Jayet-Laraffe et Sami Behat 2017/2018"));
+}
+
+
 
 void MyFrame::OnEnCours(wxCommandEvent& event){
     wxLogMessage(wxT("En construction !"));
 }
+
+
 
 void MyFrame::OnResize(wxCommandEvent& event){
     int w = 0;
@@ -177,7 +206,9 @@ void MyFrame::OnUndoImage (wxCommandEvent& event){
         m_panel->UndoImage();
 }
 
-//void MyFrame::OnRedoImage (wxCommandEvent& event){}
+void MyFrame::OnRedoImage (wxCommandEvent& event){
+        m_panel->RedoImage();
+}
 
 void MyFrame::OnProcessImage(wxCommandEvent& event){
 
@@ -216,4 +247,12 @@ void MyFrame::OnProcessImage(wxCommandEvent& event){
             break;
 
     }
+
+
 }
+/*
+void MyFrame::OnDrawImage(wxPaintEvent& event)
+{
+    m_panel->DrawImage(this);
+}
+*/

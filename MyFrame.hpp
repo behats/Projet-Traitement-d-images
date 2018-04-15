@@ -3,6 +3,7 @@
 #include <wx/wxprec.h>
 #ifndef WX_PRECOMP
 #include <wx/wx.h>
+#include <wx/event.h>
 #include <wx/filedlg.h>
 #include "MyPanel.hpp"
 #endif
@@ -23,6 +24,8 @@ private:
 	void OnProcessImage(wxCommandEvent& event);
 	void OnSaveImage(wxCommandEvent& event);
 	void OnUndoImage (wxCommandEvent& event); //sami
+    void OnRedoImage (wxCommandEvent& event);
+    void OnDrawImage(wxPaintEvent& event);
 
 	MyPanel *m_panel; // the panel inside the main frame
 

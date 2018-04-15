@@ -37,6 +37,8 @@
 		<Linker>
 			<Add option="`wx-config --libs`" />
 		</Linker>
+		<Unit filename="MyExitDialog.cpp" />
+		<Unit filename="MyExitDialog.hpp" />
 		<Unit filename="MyFrame.cpp" />
 		<Unit filename="MyFrame.hpp" />
 		<Unit filename="MyImage.cpp" />
