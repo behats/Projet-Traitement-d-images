@@ -26,6 +26,7 @@ private:
     void OnRedoImage(wxCommandEvent& event);
     void OnResetImage(wxCommandEvent& event);
 
+
 	MyPanel *m_panelPrincipal; // the panel inside the main frame
     MyPanel *m_panelSecondaire;
     MyPanel *m_panelProcess;

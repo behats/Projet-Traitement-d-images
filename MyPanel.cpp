@@ -7,7 +7,7 @@
 //#include <vector>
 
 using namespace std;
-wxDEFINE_EVENT(MON_EVENEMENT, wxCommandEvent);
+//wxDEFINE_EVENT(MON_EVENEMENT, wxCommandEvent);
 
 
 MyPanel::MyPanel(wxWindow *parent)
@@ -51,6 +51,12 @@ void MyPanel::OpenImage(wxString filename){
 
     wxSize frame_size = this->GetParent()->GetSize();
     this->GetParent()->SetClientSize(frame_size.GetWidth()-dw,frame_size.GetHeight()-dh);
+
+    /*m_width = m_image->GetWidth();
+    m_height = m_image->GetHeight();
+
+    SetSize(m_width,m_height);
+    this->GetParent()->SetClientSize(m_width,m_height);*/
 
     Refresh();
 }
@@ -129,6 +135,8 @@ void MyPanel::DesaturateImage(){
     }
 }
 
+wxDEFINE_EVENT(MON_EVENEMENT, wxCommandEvent);
+
 void MyPanel::ThresholdImage(){
     /*if (m_image != nullptr){
         m_savedimage = new MyImage(m_width,m_height);
@@ -150,7 +158,7 @@ void MyPanel::ThresholdImage(){
             m_image->Threshold(dlg->m_threshold->GetValue());
             Refresh();
         }
-        else{
+        if (n == wxID_CANCEL){
             m_image = m_undoimage;
             Refresh();
         }

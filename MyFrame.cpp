@@ -18,7 +18,8 @@ enum	// énumération. Elle gère la numérotation automatiquement
 	ID_Threshold,
 	ID_Posterize,
 	ID_save,
-	ID_Reset
+	ID_Reset,
+	ID_Process
 
 };
 
