@@ -20,87 +20,120 @@ enum	// énumération. Elle gère la numérotation automatiquement
 	ID_Threshold,
 	ID_Posterize,
 	ID_save,
+<<<<<<< HEAD
 	ID_draw,
 	ID_no
+=======
+	ID_Reset,
+	ID_Process
+
+>>>>>>> 58d9973b989f0f3f773549108074a067cc56a99f
 };
 
 MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size) //A RECOPIER
 : wxFrame(NULL, wxID_ANY, title, pos, size){
 
-    m_panel = new MyPanel(this);
+    //Création du wxBoxSizer horizontal
+    wxBoxSizer *sizer_horizontal = new wxBoxSizer(wxHORIZONTAL);
+    SetSizer(sizer_horizontal);
 
-    // Barre des tâches
+    m_panelPrincipal = new MyPanel(this);
 
-	wxMenuBar *menuBar = new wxMenuBar ;
-	SetMenuBar(menuBar) ;
+    sizer_horizontal->Add(m_panelPrincipal, 2, wxALL | wxEXPAND, 5);
 
-    //Menu des fichiers
+    //Création du wxBoxSizer vertical (pour la partie de droite)
+    wxBoxSizer *sizer_vertical = new wxBoxSizer(wxVERTICAL);
+    sizer_horizontal->Add(sizer_vertical, 1, wxTOP | wxBOTTOM | wxRIGHT | wxEXPAND, 5);
 
+    //Création de la zone du haut à droite
+    MyPanel *m_panelProcess = new MyPanel(this);
+
+    m_panelProcess->SetBackgroundColour('#bfbfbf');
+
+<<<<<<< HEAD
+	menuFile->Append(wxID_SAVE);
+	Bind(wxEVT_MENU, &MyFrame::OnSaveImage, this, wxID_SAVE);
+=======
+    wxButton *btn_miroirH = new wxButton(m_panelProcess,ID_MirrorH,wxT("Miroir horizontal"),wxPoint(25,10),wxSize(110,30),0,wxDefaultValidator,wxButtonNameStr);
+    Bind(wxEVT_BUTTON, &MyFrame::OnProcessImage, this, ID_MirrorH);
+    //btn_miroirH->SetBitmap(wxBitmap("miroirH2.jpg"));
+>>>>>>> 58d9973b989f0f3f773549108074a067cc56a99f
+
+    wxButton *btn_miroirV = new wxButton(m_panelProcess,ID_MirrorV,wxT("Miroir vertical"),wxPoint(145,10),wxSize(110,30),0,wxDefaultValidator,wxButtonNameStr);
+    Bind(wxEVT_BUTTON, &MyFrame::OnProcessImage, this, ID_MirrorV);
+
+    wxButton *btn_rotate = new wxButton(m_panelProcess,ID_Rotate,wxT("Rotation"),wxPoint(25,50),wxSize(110,30),0,wxDefaultValidator,wxButtonNameStr);
+    Bind(wxEVT_BUTTON, &MyFrame::OnProcessImage, this, ID_Rotate);
+
+    wxButton *btn_flou = new wxButton(m_panelProcess,ID_Blur,wxT("Flou"),wxPoint(145,50),wxSize(110,30),0,wxDefaultValidator,wxButtonNameStr);
+    Bind(wxEVT_BUTTON, &MyFrame::OnProcessImage, this, ID_Blur);
+
+<<<<<<< HEAD
+	menuFile->Append(wxID_EXIT) ;
+	Bind(wxEVT_MENU, &MyFrame::OnExit, this, wxID_EXIT) ;
+=======
+    wxButton *btn_negatif = new wxButton(m_panelProcess,ID_Negative,wxT("Négatif"),wxPoint(25,90),wxSize(110,30),0,wxDefaultValidator,wxButtonNameStr);
+    Bind(wxEVT_BUTTON, &MyFrame::OnProcessImage, this, ID_Negative);
+
+    wxButton *btn_desaturate = new wxButton(m_panelProcess,ID_Desaturate,wxT("Désaturer"),wxPoint(145,90),wxSize(110,30),0,wxDefaultValidator,wxButtonNameStr);
+    Bind(wxEVT_BUTTON, &MyFrame::OnProcessImage, this, ID_Desaturate);
+>>>>>>> 58d9973b989f0f3f773549108074a067cc56a99f
+
+    wxButton *btn_threshold = new wxButton(m_panelProcess,ID_Threshold,wxT("Seuillage"),wxPoint(25,130),wxSize(110,30),0,wxDefaultValidator,wxButtonNameStr);
+    Bind(wxEVT_BUTTON, &MyFrame::OnProcessImage, this, ID_Threshold);
+
+    wxButton *btn_posterize = new wxButton(m_panelProcess,ID_Posterize,wxT("Postériser"),wxPoint(145,130),wxSize(110,30),0,wxDefaultValidator,wxButtonNameStr);
+    Bind(wxEVT_BUTTON, &MyFrame::OnProcessImage, this, ID_Posterize);
+    sizer_vertical->Add(m_panelProcess, 1, wxBOTTOM | wxEXPAND, 5);
+
+<<<<<<< HEAD
+	menuEdit->Append(wxID_REDO);
+	Bind(wxEVT_MENU, &MyFrame::OnRedoImage, this, wxID_REDO);
+=======
+    //Création de la zone du bas à droite
+   /* MyPanel *m_panelSecondaire = new MyPanel(this);
+    m_panelSecondaire->SetBackgroundColour('#dbd7d7');
+    sizer_vertical->Add(m_panelSecondaire, 2, wxALL | wxEXPAND, 0);*/
+>>>>>>> 58d9973b989f0f3f773549108074a067cc56a99f
+
+
+    //menu file
 	wxMenu *menuFile = new wxMenu ;
-	menuBar->Append( menuFile, wxT("File" )) ;
 
 	menuFile->Append(wxID_OPEN);
 	Bind(wxEVT_MENU, &MyFrame::OnOpenImage, this, wxID_OPEN);
 
-	menuFile->Append(wxID_SAVE);
-	Bind(wxEVT_MENU, &MyFrame::OnSaveImage, this, wxID_SAVE);
-
-	menuFile->Append(ID_PlusLarge, wxT("Plus Large...\tCtrl+"));
-	Bind(wxEVT_MENU, &MyFrame::OnResize, this, ID_PlusLarge);
-
-	menuFile->Append(ID_MoinsLarge, wxT("Moins Large...\tCtrl-"));
-	Bind(wxEVT_MENU, &MyFrame::OnResize, this, ID_MoinsLarge);
-
-	menuFile->Append(ID_Hello, wxT("Hello...\tCtrl-H"), wxT("hello")) ;
-	Bind(wxEVT_MENU, &MyFrame::OnHello, this, ID_Hello) ;
+	menuFile->Append(ID_save, wxT("Save\tCtrl-S"));
+	Bind(wxEVT_MENU, &MyFrame::OnSaveImage, this, ID_save);
 
 	menuFile->Append(wxID_EXIT) ;
 	Bind(wxEVT_MENU, &MyFrame::OnExit, this, wxID_EXIT) ;
 
-	//Menu relatif aux manipulations
-
-    wxMenu *menuEdit = new wxMenu ;
-	menuBar->Append( menuEdit, wxT("Edit" ));
-
-	menuEdit->Append(wxID_UNDO);
+	//menu edit
+	wxMenu *menuEdit = new wxMenu ;
+    menuEdit->Append(wxID_UNDO);
 	Bind(wxEVT_MENU, &MyFrame::OnUndoImage, this, wxID_UNDO);
 
 	menuEdit->Append(wxID_REDO);
 	Bind(wxEVT_MENU, &MyFrame::OnRedoImage, this, wxID_REDO);
 
-	// Menu relatif au traitement des images
+	menuEdit->Append(ID_Reset, wxT("Reset\tCtrl-R"));
+	Bind(wxEVT_MENU, &MyFrame::OnResetImage, this, ID_Reset);
 
-	wxMenu *menuProcess = new wxMenu;
-	menuBar->Append( menuProcess, wxT("Process" ));
+	//menu window
+	wxMenu *menuWindow = new wxMenu;
+	menuWindow->Append(ID_PlusLarge, wxT("Plus Large\tShift-Ctrl-L"));
+	Bind(wxEVT_MENU, &MyFrame::OnResize, this, ID_PlusLarge);
 
-	//Miroirs
+	menuWindow->Append(ID_MoinsLarge, wxT("Moins Large\tCtrl-L"));
+	Bind(wxEVT_MENU, &MyFrame::OnResize, this, ID_MoinsLarge);
 
-	menuProcess->Append(ID_MirrorH, wxT("Miroir horizontal"));
-	Bind(wxEVT_MENU, &MyFrame::OnProcessImage, this, ID_MirrorH);
+	//menu help
+	wxMenu *menuHelp = new wxMenu;
+	menuHelp->Append(ID_Hello, wxT("Hello\tCtrl-H")) ;
+	Bind(wxEVT_MENU, &MyFrame::OnHello, this, ID_Hello) ;
 
-	menuProcess->Append(ID_MirrorV, wxT("Miroir vertical"));
-	Bind(wxEVT_MENU, &MyFrame::OnProcessImage, this, ID_MirrorV);
-
-	//Flou
-	menuProcess->Append(ID_Blur, wxT("Flou\tCtrl-F"));
-	Bind(wxEVT_MENU, &MyFrame::OnProcessImage, this, ID_Blur);
-
-	//Rotation
-	menuProcess->Append(ID_Rotate, wxT("Rotation"));
-	Bind(wxEVT_MENU, &MyFrame::OnProcessImage, this, ID_Rotate);
-
-	menuProcess->Append(ID_Negative, wxT("Negatif\tCtrl-N"));
-	Bind(wxEVT_MENU, &MyFrame::OnProcessImage, this, ID_Negative);
-
-	menuProcess->Append(ID_Desaturate, wxT("Desaturate\tCtrl-D"));
-	Bind(wxEVT_MENU, &MyFrame::OnProcessImage, this, ID_Desaturate);
-
-	menuProcess->Append(ID_Threshold, wxT("Threshold\tCtrl-T"));
-	Bind(wxEVT_MENU, &MyFrame::OnProcessImage, this, ID_Threshold);
-
-	menuProcess->Append(ID_Posterize, wxT("Posterize\tCtrl-P"));
-	Bind(wxEVT_MENU, &MyFrame::OnProcessImage, this, ID_Posterize);
-
+<<<<<<< HEAD
 	//menuProcess->Append(ID_draw, wxT("Draw\tCtrl-D"));
 	//Bind(wxEVT_MENU, &MyFrame::OnDrawImage, this, ID_draw);
 
@@ -110,29 +143,48 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size) 
 
 	menuBar->Append( menuHelp, wxT("Help" ));
 	menuHelp->Append(ID_Encours, wxT("En cours...\tCtrl-E"));
+=======
+	menuHelp->Append(wxID_ABOUT);
+	Bind(wxEVT_MENU, &MyFrame::OnAbout, this, wxID_ABOUT);
+
+	menuHelp->Append(ID_Encours, wxT("En cours\tCtrl-E"));
+>>>>>>> 58d9973b989f0f3f773549108074a067cc56a99f
 	Bind(wxEVT_MENU, &MyFrame::OnEnCours, this, ID_Encours);
 	menuHelp->Append(wxID_ABOUT);
 	Bind(wxEVT_MENU, &MyFrame::OnAbout, this, wxID_ABOUT);
 
+	//barre menu
+	wxMenuBar *menuBar = new wxMenuBar ;
+	menuBar->Append( menuFile, wxT("File" )) ;
+	menuBar->Append( menuEdit, wxT("Edit"));
+	menuBar->Append( menuWindow, wxT("Window"));
+	menuBar->Append( menuHelp, wxT("Help" ));
+	SetMenuBar(menuBar) ;
 
-	//
-
+	//barre de statut
 	Bind(wxEVT_MOTION, &MyFrame::OnMouse, this);
     CreateStatusBar();
     SetStatusText(wxT("Hello!"));
-
 }
 
 void MyFrame::OnHello(wxCommandEvent& event){
 	wxLogMessage(wxT("Hello world from wxWidgets!"));
 }
 
+<<<<<<< HEAD
 
+=======
+void MyFrame::OnExit(wxCommandEvent& event){
+	Close(true);
+}
+>>>>>>> 58d9973b989f0f3f773549108074a067cc56a99f
 
 void MyFrame::OnOpenImage(wxCommandEvent& event){
     wxString img = wxFileSelector();
     if (!img.empty()){
-        m_panel->OpenImage(img);
+        m_panelPrincipal->OpenImage(img);
+       // m_panelSecondaire->OpenImage(img);
+        //m_panelPrincipal->SetSize
     }
 }
 
@@ -158,7 +210,11 @@ int rep = dlg->ShowModal();
 
 
 void MyFrame::OnAbout(wxCommandEvent& event){
+<<<<<<< HEAD
     wxLogMessage(wxT("Auteur: Antoine Jayet-Laraffe et Sami Behat 2017/2018"));
+=======
+    wxLogMessage(wxT("Auteur:\nAntoine Jayet-Laraffe\nSami Behat\n2017/2018"));
+>>>>>>> 58d9973b989f0f3f773549108074a067cc56a99f
 }
 
 
@@ -197,17 +253,25 @@ void MyFrame::OnSaveImage(wxCommandEvent& event){
     wxString filename = wxSaveFileSelector(wxT("Save as"),wxT(".png"),wxT("NomFichier"));
     //SetClientSize(m_width,m_height);
     if( !filename.empty()){
-        m_panel->SaveImage(filename);
+        m_panelPrincipal->SaveImage(filename);
     }
 }
 
-void MyFrame::OnUndoImage (wxCommandEvent& event){
-
-        m_panel->UndoImage();
+void MyFrame::OnUndoImage(wxCommandEvent& event){
+    m_panelPrincipal->UndoImage();
 }
 
+void MyFrame::OnRedoImage(wxCommandEvent& event){
+    m_panelPrincipal->RedoImage();
+}
+
+<<<<<<< HEAD
 void MyFrame::OnRedoImage (wxCommandEvent& event){
         m_panel->RedoImage();
+=======
+void MyFrame::OnResetImage(wxCommandEvent& event){
+    m_panelPrincipal->ResetImage();
+>>>>>>> 58d9973b989f0f3f773549108074a067cc56a99f
 }
 
 void MyFrame::OnProcessImage(wxCommandEvent& event){
@@ -215,35 +279,35 @@ void MyFrame::OnProcessImage(wxCommandEvent& event){
     switch(event.GetId()) {
 
         case ID_MirrorH:
-            m_panel->MirrorImage(true);
+            m_panelPrincipal->MirrorImage(true);
             break;
 
         case ID_MirrorV:
-            m_panel->MirrorImage(false);
+            m_panelPrincipal->MirrorImage(false);
             break;
 
         case ID_Blur:
-            m_panel->BlurImage();
+            m_panelPrincipal->BlurImage();
             break;
 
         case ID_Rotate:
-            m_panel->RotateImage();
+            m_panelPrincipal->RotateImage();
             break;
 
         case ID_Negative:
-            m_panel->NegativeImage();
+            m_panelPrincipal->NegativeImage();
             break;
 
         case ID_Desaturate:
-            m_panel->DesaturateImage();
+            m_panelPrincipal->DesaturateImage();
             break;
 
         case ID_Threshold:
-            m_panel->ThresholdImage();
+            m_panelPrincipal->ThresholdImage();
             break;
 
         case ID_Posterize:
-            m_panel->PosterizeImage();
+            m_panelPrincipal->PosterizeImage();
             break;
 
     }

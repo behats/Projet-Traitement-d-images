@@ -23,11 +23,20 @@ private:
 	void OnOpenImage(wxCommandEvent& event);
 	void OnProcessImage(wxCommandEvent& event);
 	void OnSaveImage(wxCommandEvent& event);
+<<<<<<< HEAD
 	void OnUndoImage (wxCommandEvent& event); //sami
     void OnRedoImage (wxCommandEvent& event);
     void OnDrawImage(wxPaintEvent& event);
+=======
+	void OnUndoImage(wxCommandEvent& event);
+    void OnRedoImage(wxCommandEvent& event);
+    void OnResetImage(wxCommandEvent& event);
+>>>>>>> 58d9973b989f0f3f773549108074a067cc56a99f
 
-	MyPanel *m_panel; // the panel inside the main frame
+
+	MyPanel *m_panelPrincipal; // the panel inside the main frame
+    MyPanel *m_panelSecondaire;
+    MyPanel *m_panelProcess;
 
 };
 #endif

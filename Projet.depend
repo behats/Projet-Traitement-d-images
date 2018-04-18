@@ -1748,6 +1748,7 @@
 	"MyRotateDialog.hpp"
 	"MyThresholdDialog.hpp"
 
+<<<<<<< HEAD
 1523353787 source:/users/info/etu-s4/behats/git/Projet-Traitement-d-images/MyExitDialog.cpp
 	"MyExitDialog.hpp"
 
@@ -1755,4 +1756,60 @@
 	<wx/wxprec.h>
 	<wx/wx.h>
 	<wx/filedlg.h>
+=======
+1523808849 source:/users/info/etu-s4/jayetlan/Documents/M4105C/git/Projet-Traitement-d-images/MyFrame.cpp
+	"MyFrame.hpp"
+
+1523808857 /users/info/etu-s4/jayetlan/Documents/M4105C/git/Projet-Traitement-d-images/MyFrame.hpp
+	<wx/wxprec.h>
+	<wx/wx.h>
+	<wx/filedlg.h>
+	"MyPanel.hpp"
+
+1523719324 /users/info/etu-s4/jayetlan/Documents/M4105C/git/Projet-Traitement-d-images/MyPanel.hpp
+	<wx/wxprec.h>
+	<wx/wx.h>
+	<wx/filedlg.h>
+	"MyImage.hpp"
+
+1522071027 /users/info/etu-s4/jayetlan/Documents/M4105C/git/Projet-Traitement-d-images/MyImage.hpp
+	<wx/wxprec.h>
+	<wx/wx.h>
+
+1523726540 source:/users/info/etu-s4/jayetlan/Documents/M4105C/git/Projet-Traitement-d-images/MyImage.cpp
+	"MyImage.hpp"
+	<vector>
+
+1523809393 source:/users/info/etu-s4/jayetlan/Documents/M4105C/git/Projet-Traitement-d-images/MyPanel.cpp
+	"MyImage.hpp"
+	"MyPanel.hpp"
+	"MyRotateDialog.hpp"
+	"MyThresholdDialog.hpp"
+
+1522071027 /users/info/etu-s4/jayetlan/Documents/M4105C/git/Projet-Traitement-d-images/MyRotateDialog.hpp
+	<wx/radiobox.h>
+	<wx/button.h>
+	<wx/dialog.h>
+
+1522152682 /users/info/etu-s4/jayetlan/Documents/M4105C/git/Projet-Traitement-d-images/MyThresholdDialog.hpp
+	<wx/wxprec.h>
+	<wx/wx.h>
+	<wx/filedlg.h>
+
+1522071027 source:/users/info/etu-s4/jayetlan/Documents/M4105C/git/Projet-Traitement-d-images/MyRotateDialog.cpp
+	"MyRotateDialog.hpp"
+	<wx/intl.h>
+	<wx/string.h>
+
+1523809310 source:/users/info/etu-s4/jayetlan/Documents/M4105C/git/Projet-Traitement-d-images/MyThresholdDialog.cpp
+	"MyThresholdDialog.hpp"
+
+1523021099 source:/users/info/etu-s4/jayetlan/Documents/M4105C/git/Projet-Traitement-d-images/projet.cpp
+	<wx/wxprec.h>
+	<wx/wx.h>
+	<wx/filedlg.h>
+	"MyFrame.hpp"
+	"MyThresholdDialog.hpp"
+	"MyRotateDialog.hpp"
+>>>>>>> 58d9973b989f0f3f773549108074a067cc56a99f
 
